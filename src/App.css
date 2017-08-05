@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: #EAEBEC;
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    margin-top: 150px !important;
+    width: 400px;
+    margin: auto;
+}
