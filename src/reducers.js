@@ -17,3 +17,4 @@ export const calculator = (state = initState, action) => {
             return state;
     }
 }
+//musisz to rozbic na osobne akcje np CALCULATOR_CLICK_PLUS, CALCULATOR_CLICK_MINUS etc
