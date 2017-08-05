@@ -1,8 +1,15 @@
-import { CALCULATOR_BUTTON_CLICK } from './constants';
+import { CALCULATOR_DIGIT_BUTTON_CLICK, CALCULATOR_SIGN_BUTTON_CLICK } from './constants';
 
-export const buttonClickAction = (action) => {
+export const digitButtonClickAction = (digit) => {
     return {
-        type: CALCULATOR_BUTTON_CLICK,
-        action
+        type: CALCULATOR_DIGIT_BUTTON_CLICK,
+        digit
+    };
+};
+
+export const signButtonClickAction = (sign) => {
+    return {
+        type: CALCULATOR_SIGN_BUTTON_CLICK,
+        sign
     };
 };

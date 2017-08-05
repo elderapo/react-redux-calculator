@@ -6,7 +6,7 @@ import './Calculator.css';
 
 import CalcBody from './CalcBody';
 import CalcScreen from './CalcScreen';
-import CalcButton from './CalcButton';
+import { CalcButtonDigit, CalcButtonSign } from './CalcButton';
 import CalcButtonRow from './CalcButtonRow';
 
 
@@ -17,34 +17,34 @@ export class Calculator extends Component {
       <CalcBody>
         <CalcScreen calcTopText={topText} calcBottomText={bottomText} />
         <CalcButtonRow>
-          <CalcButton action="C" />
-          <CalcButton action="≠" />
-          <CalcButton action="%" />
-          <CalcButton action="/" />
+          <CalcButtonSign sign="C" />
+          <CalcButtonSign sign="≠" />
+          <CalcButtonSign sign="%" />
+          <CalcButtonSign sign="/" />
         </CalcButtonRow>
         <CalcButtonRow>
-          <CalcButton action="7" />
-          <CalcButton action="8" />
-          <CalcButton action="9" />
-          <CalcButton action="x" />
+          <CalcButtonDigit digit={7} />
+          <CalcButtonDigit digit={8} />
+          <CalcButtonDigit digit={9} />
+          <CalcButtonSign sign="x" />
         </CalcButtonRow>
         <CalcButtonRow>
-          <CalcButton action="4" />
-          <CalcButton action="5" />
-          <CalcButton action="6" />
-          <CalcButton action="−" />
+          <CalcButtonDigit digit={4} />
+          <CalcButtonDigit digit={5} />
+          <CalcButtonDigit digit={6} />
+          <CalcButtonSign sign="−" />
         </CalcButtonRow>
         <CalcButtonRow>
-          <CalcButton action="1" />
-          <CalcButton action="2" />
-          <CalcButton action="3" />
-          <CalcButton action="+" />
+          <CalcButtonDigit digit={1} />
+          <CalcButtonDigit digit={2} />
+          <CalcButtonDigit digit={3} />
+          <CalcButtonSign sign="+" />
         </CalcButtonRow>
         <CalcButtonRow>
-          <CalcButton action="." />
-          <CalcButton action="0" />
-          <CalcButton action="<" />
-          <CalcButton action="=" />
+          <CalcButtonSign sign="." />
+          <CalcButtonDigit digit={0} />
+          <CalcButtonSign sign="<" />
+          <CalcButtonSign sign="=" />
         </CalcButtonRow>
       </CalcBody>
     );

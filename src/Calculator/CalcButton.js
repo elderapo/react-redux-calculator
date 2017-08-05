@@ -2,71 +2,90 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-import { buttonClickAction } from '../actions';
+import { digitButtonClickAction, signButtonClickAction } from '../actions';
 
 class CalcButton extends Component {
     static propTypes = {
-        dispatch: PropTypes.func.isRequired,
-    }
-
-    constructor(props) {
-        super(props);
-
-        this.onClickHandler = this.onClickHandler.bind(this);
-    }
-
-    onClickHandler(event) {
-        const {dispatch} = this.props;
-        dispatch(buttonClickAction(this.props.action));
-    // dispatch this.props.action ???
-    //tutaj nie dispatchujesz akcji zobacz nizej odpowiedz
-    }
+        // text: PropTypes.string
+    };
 
     render() {
+        // onClick={ () => this.props.handleClick(this.props.action) }
         return (
-            <div className="button" onClick={ this.onClickHandler }>
-              { this.props.action }
+            <div className="button" onClick={() => this.onClick && this.onClick()}>
+                {this.getText()}
             </div>
-            );
+        );
     }
 }
 
-// Mogę tak używać samego connect(), żeby mieć możliwość dispatchowania?
-/*
-connect sluzy do podlaczenia componentu do store by nasluchiwal na zmiany state oraz by dispatchowal akcje
-jego pierwsze wykonanie przyjmuje 2 argumenty:
-    mapStateToProps - czyli tutaj mowisz store jakie kawalki state chcesz nasluchiwac
-    mapDispatchToProps - tutaj mowisz jakie funkcje dispatchuja akcje
+let CalcButtonDigit_ = class extends CalcButton {
+    static propTypes = {
+        digit: PropTypes.number
+    };
 
-***********
-PRZYKŁAD
+    onClick() {
+        const { handleClick, digit } = this.props;
+        return handleClick(digit);
+    }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        user: state.account.user,
-        error: state.errors.message
+    getText() {
+        return this.props.digit;
     }
 }
-i teraz mozesz sie odwolac w komponencie do tego poprzez this.props.user i gdy tylko gdziekolwiek indziej sie zmieni w state user tutaj tez sie zmieni
 
+const CalcButtonSign_ = class extends CalcButton {
+    static propTypes = {
+        sign: PropTypes.string
+    };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+    onClick() {
+        const { handleClick, sign } = this.props;
+        return handleClick(sign);
+    }
+
+    getText() {
+        return this.props.sign;
+    }
+}
+
+export const CalcButtonDigit = connect(null, (dispatch, ownProps) => {
     return {
-        handleClick: () => {
-            dispatch(myAction())
+        handleClick: (digit) => {
+            dispatch(digitButtonClickAction(digit))
         }
     }
-}
+})(CalcButtonDigit_)
 
-tutaj dispatchujesz swoje akcje, odwolujesz sie do niego poprzez props czyli this.props.handleClick()
-
-laczysz to wszystko i masz
-export default connect(mapStateToProps,mapDispatchToProps)(CalcButton);
-
-
-
-*/
-
+export const CalcButtonSign = connect(null, (dispatch, ownProps) => {
+    return {
+        handleClick: (sign) => {
+            dispatch(signButtonClickAction(sign))
+        }
+    }
+})(CalcButtonSign_)
 
 
-export default connect()(CalcButton);
+// export default {
+    // CalcButtonDigit: connect(null, (dispatch, ownProps) => {
+    //     return {
+    //         handleClick: (digit) => {
+    //             dispatch(digitButtonClickAction(digit))
+    //         }
+    //     }
+    // })(CalcButtonDigit),
+    // CalcButtonSign: connect(null, null)(CalcButtonDigit)
+// };
+
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//     return {
+//         handleClick: (action) => {
+//             dispatch(buttonClickAction(action))
+//         }
+//     }
+// };
+
+// export default connect(null, mapDispatchToProps)(CalcButton);
+
+// export default CalcButton;
