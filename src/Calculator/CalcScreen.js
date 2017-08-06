@@ -22,9 +22,11 @@ class CalcScreen extends Component {
     render() {
         return (
             <div className="calc-screen">
-                <Textfit mode="single">
-                    <div className="calc-operation">{this.props.calcTopText}</div>
-                </Textfit>
+                <div className="calc-operation">
+                    <Textfit mode="single" max={21}>
+                        {this.props.calcTopText}
+                    </Textfit>
+                </div>
                 <div className="calc-typed">
                     <Textfit mode="single" max={45}>
                         <span className="calc-result">{this.props.calcBottomText}</span>
