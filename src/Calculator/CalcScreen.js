@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Textfit } from 'react-textfit';
 
-const MAX_FONT_SIZE = 45;
 
 class CalcScreen extends Component {
     constructor(props) {
@@ -23,9 +22,11 @@ class CalcScreen extends Component {
     render() {
         return (
             <div className="calc-screen">
-                <div className="calc-operation">{this.props.calcTopText}</div>
+                <Textfit mode="single">
+                    <div className="calc-operation">{this.props.calcTopText}</div>
+                </Textfit>
                 <div className="calc-typed">
-                    <Textfit mode="single" max={MAX_FONT_SIZE}>
+                    <Textfit mode="single" max={45}>
                         <span className="calc-result">{this.props.calcBottomText}</span>
                         <span className="blink-me" style={{ opacity: this.state.opacity, transition: "opacity .5s" }}>_</span>
                     </Textfit>

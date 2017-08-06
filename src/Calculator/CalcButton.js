@@ -1,18 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
+import KeyHandler, { KEYPRESS, KEYDOWN } from 'react-key-handler';
 
 import { digitButtonClickAction, signButtonClickAction } from '../actions';
 
 class CalcButton extends Component {
     static propTypes = {
-        // text: PropTypes.string
+        disabled: PropTypes.bool
     };
+
+    static defaultProps = {
+        disabled: false
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.handleOnClick = this.handleOnClick.bind(this);
+        this.handleKeyEvent = this.handleKeyEvent.bind(this);
+    }
+
+    handleOnClick() {
+        if (!this.props.disabled && this.onClick)
+            this.onClick();
+    }
+
+    handleKeyEvent(event) {
+        this.onClick();
+    }
 
     render() {
         // onClick={ () => this.props.handleClick(this.props.action) }
+        const keyValues = this.getKeyValues && this.getKeyValues();
         return (
-            <div className="button" onClick={() => this.onClick && this.onClick()}>
+            <div className={"button " + (this.props.disabled && "disabled-button")} onClick={this.handleOnClick}>
+                {
+                    keyValues && keyValues.map((keyValue, i) => {
+                        return <KeyHandler keyEventName={KEYDOWN} key={i} keyValue={keyValue} onKeyHandle={this.handleKeyEvent} />
+                    })
+                }
                 {this.getText()}
             </div>
         );
@@ -32,11 +59,16 @@ let CalcButtonDigit_ = class extends CalcButton {
     getText() {
         return this.props.digit;
     }
+
+    getKeyValues() {
+        return [this.props.digit.toString()];
+    }
 }
 
 const CalcButtonSign_ = class extends CalcButton {
     static propTypes = {
-        sign: PropTypes.string
+        sign: PropTypes.string,
+        keyValues: PropTypes.array
     };
 
     onClick() {
@@ -46,6 +78,10 @@ const CalcButtonSign_ = class extends CalcButton {
 
     getText() {
         return this.props.sign;
+    }
+
+    getKeyValues() {
+        return this.props.keyValues;
     }
 }
 

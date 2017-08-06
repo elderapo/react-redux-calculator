@@ -4,6 +4,13 @@
     min-height: 400px;
     border: solid 1px #3A4655;
     box-shadow: 0 8px 50px -7px black;
+      -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 .calc-screen {
@@ -64,10 +71,15 @@
     /* transform: rotate(5deg); */
 }
 
-.button.c:hover,
-.button.l:hover {
-    background: #E0B612;
-    color: #fff;
+
+.disabled-button {
+    cursor: no-drop;
+    opacity: 0.4;
+}
+
+.disabled-button:hover {
+    background: #404D5E !important;
+    /* transform: rotate(5deg); */
 }
 
 .blink-me {
